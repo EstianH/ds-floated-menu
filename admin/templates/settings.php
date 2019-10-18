@@ -118,7 +118,7 @@ $dsfm = DS_FLOATED_MENU::get_instance();
 									</h2>
 								</div>
 								<div class="ds-block-body">
-									<?php _e( 'Thank you for using divSpot. If you like our plugins please support us by <a href="https://wordpress.org/plugins/ds-site-message/#reviews" target="_blank">submitting a review</a>.', DSFM_SLUG ); ?>
+									<?php _e( 'Thank you for using divSpot. If you like our plugins please support us by <a href="https://wordpress.org/plugins/ds-floated-menu/#reviews" target="_blank">submitting a review</a>.', DSFM_SLUG ); ?>
 								</div><!-- .ds-block-body -->
 							</div><!-- .ds-block -->
 						</div><!-- .ds-col -->

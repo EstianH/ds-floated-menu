@@ -67,6 +67,9 @@ class DS_FLOATED_MENU_ADMIN {
 
 		// Register plugin settings.
 		register_setting( 'dsfm_settings', 'dsfm_settings' );
+
+		// Register DSFM locations.
+		add_action( 'init', array( $this, 'register_menu_locations' ) );
 	}
 
 	/**
@@ -146,6 +149,21 @@ class DS_FLOATED_MENU_ADMIN {
 		array_push( $links, $settings_link );
 
 		return $links;
+	}
+
+	/**
+	 * Add menu locations to the WordPress menus manager page.
+	 *
+	 * @access public
+	 */
+	public function register_menu_locations() {
+		register_nav_menus(
+			array(
+				'dsfm-float-left'    => __( 'DSFM: Float Left' ),
+				'dsfm-float-right'   => __( 'DSFM: Float Right' ),
+				'dsfm-float-movable' => __( 'DSFM: Movable Menu' )
+			)
+		);
 	}
 }
 
