@@ -69,7 +69,7 @@ class DS_FLOATED_MENU_ADMIN {
 		register_setting( 'dsfm_settings', 'dsfm_settings' );
 
 		// Register DSFM locations.
-		add_action( 'init', array( $this, 'register_menu_locations' ) );
+		add_action( 'init', array( $this, 'register_nav_menus' ) );
 	}
 
 	/**
@@ -156,14 +156,10 @@ class DS_FLOATED_MENU_ADMIN {
 	 *
 	 * @access public
 	 */
-	public function register_menu_locations() {
-		register_nav_menus(
-			array(
-				'dsfm-float-left'    => __( 'DSFM: Float Left' ),
-				'dsfm-float-right'   => __( 'DSFM: Float Right' ),
-				'dsfm-float-movable' => __( 'DSFM: Movable Menu' )
-			)
-		);
+	public function register_nav_menus() {
+		$dsfm = DS_FLOATED_MENU::get_instance();
+
+		register_nav_menus( $dsfm->menu_locations );
 	}
 }
 

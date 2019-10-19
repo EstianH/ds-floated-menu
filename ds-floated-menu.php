@@ -23,14 +23,15 @@ if( !defined( 'ABSPATH' ) ) exit;
 if( !defined( 'DIVSPOT_URL' ) )
 	define( 'DIVSPOT_URL', 'https://www.divspot.co.za' );
 
-define( 'DSFM_BASENAME', plugin_basename( __FILE__ ) );
-define( 'DSFM_URL'     , plugins_url( '', DSFM_BASENAME ) . '/' ); // User-Friendly URL
-define( 'DSFM_ROOT'    , __DIR__ . '/' ); // FTP Path
-define( 'DSFM_ADMIN'   , DSFM_URL . 'admin/' ); // FTP Path
-define( 'DSFM_ASSETS'  , DSFM_URL . 'assets/' ); // FTP Path
-define( 'DSFM_TITLE'   , 'DS Floated Menu' );
-define( 'DSFM_SLUG'    , sanitize_title( DSFM_TITLE ) ); // Plugin slug.
-define( 'DSFM_VERSION' , '1.0' );
+define( 'DSFM_BASENAME'  , plugin_basename( __FILE__ ) );
+define( 'DSFM_URL'       , plugins_url( '', DSFM_BASENAME ) . '/' ); // User-Friendly URL
+define( 'DSFM_ROOT'      , __DIR__   . '/' ); // FTP Path
+define( 'DSFM_ADMIN'     , DSFM_URL  . 'admin/' ); // FTP Path
+define( 'DSFM_ASSETS'    , DSFM_URL  . 'assets/' ); // FTP Path
+define( 'DSFM_TEMPLATES' , DSFM_ROOT . 'templates/' ); // FTP Path
+define( 'DSFM_TITLE'     , 'DS Floated Menu' );
+define( 'DSFM_SLUG'      , sanitize_title( DSFM_TITLE ) ); // Plugin slug.
+define( 'DSFM_VERSION'   , '1.0' );
 
 
 /*
@@ -58,6 +59,13 @@ class DS_FLOATED_MENU {
 	public $settings;
 
 	/**
+	 * Plugin menu locations.
+	 *
+	 * @access public
+	 */
+	public $menu_locations;
+
+	/**
 	 * Returns the instance of the class.
 	 *
 	 * @access public
@@ -78,6 +86,29 @@ class DS_FLOATED_MENU {
 	 */
 	private function __construct() {
 		$this->settings = get_option( 'dsfm_settings' );
+
+		$this->menu_locations = apply_filters( 'dsfm-menu-locations', array(
+			'dsfm-left'    => __( 'DSFM: Float Left'  , DSFM_SLUG ),
+			'dsfm-right'   => __( 'DSFM: Float Right' , DSFM_SLUG ),
+			'dsfm-movable' => __( 'DSFM: Movable Menu', DSFM_SLUG )
+		) );
+
+		// Enqueue plugin assets.
+		add_action( 'wp_enqueue_scripts', function() {
+			wp_enqueue_script ( 'dsfm-script', DSFM_ASSETS . 'js/script.js',  array( 'jquery-core' ), DSFM_VERSION );
+			wp_enqueue_style  ( 'dsfm-style' , DSFM_ASSETS . 'css/style.css', array(),                DSFM_VERSION );
+		} );
+
+		add_action( 'wp_footer', array( $this, 'render_menu_locations' ) );
+	}
+
+	/**
+	 * Render menus in their saved locations.
+	 *
+	 * @access private
+	 */
+	public function render_menu_locations() {
+		load_template( DSFM_TEMPLATES . 'floated-menu.php' );
 	}
 }
 

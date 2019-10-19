@@ -1,22 +1,35 @@
-$ds-global-width-sm:   576px; // Bootstrap 4: 576px
-$ds-global-width-md:   768px; // Bootstrap 4: 768px
-$ds-global-width-lg:   992px; // Bootstrap 4: 992px
-$ds-global-width-xl:  1200px; // Bootstrap 4: 1200px
-$ds-global-width-xxl: 1680px; // DS Frame: 1680px
+/*
+██████  ███████      ██████  ██████  ██████  ███████
+██   ██ ██          ██      ██    ██ ██   ██ ██
+██   ██ ███████     ██      ██    ██ ██████  █████
+██   ██      ██     ██      ██    ██ ██   ██ ██
+██████  ███████      ██████  ██████  ██   ██ ███████
+*/
+@import '../../admin/assets/vendors/ds-core/css/style';
 
-$ds-grey-light: #f9f9f9;
-$ds-grey:       #efefef;
-$ds-grey-dark:  #515151;
-$ds-red:        #D0021B;
-$ds-green:      #f8fff8;
+#ds-floated-menu-container {
+	position: absolute;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
 
-$white: #fff;
-$black: #000;
+	#dsfm-left-container,
+	#dsfm-right-container {
+		position: fixed;
+		z-index: 999;
+		top: 50%;
+		@include ds-transform( translateY( -50% ) );
+	}
 
-$ds-font-size: 16px;
-$ds-line-height: 18px;
+	#dsfm-left-container {
+		left: 0;
+	}
 
-
+	#dsfm-right-container {
+		right: 0;
+	}
+}
 
 @media( min-width: $ds-global-width-sm ) {
 
