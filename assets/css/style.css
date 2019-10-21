@@ -2249,11 +2249,16 @@ select.ds-input-box {
   border-style: solid;
   border-color: #efefef; }
   .dsfm-hamburger-icon > span {
-    transition: all 0.4s;
+    transition: all 0.1s;
     display: block;
     border-top: 2px solid #515151;
     height: auto;
     width: 100%; }
+  .dsfm-hamburger-icon:hover > span:first-child {
+    border-top-width: 6px;
+    border-radius: 50% 50% 0 0; }
+  .dsfm-hamburger-icon:hover > span:last-child {
+    border-top-width: 4px; }
 
 #dsfm-left-container,
 #dsfm-right-container {

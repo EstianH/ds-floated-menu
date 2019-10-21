@@ -38,10 +38,23 @@
 	border-color: $ds-grey;
 
 	> span {
-		transition: all 0.4s;
+		transition: all 0.1s;
 		display: block;
 		border-top: 2px solid $ds-grey-dark;
 		@include ds-dimensions( 100%, auto );
+	}
+
+	&:hover {
+		> span {
+			&:first-child {
+				border-top-width: 6px;
+				border-radius: 50% 50% 0 0;
+			}
+
+			&:last-child {
+				border-top-width: 4px;
+			}
+		}
 	}
 }
 
