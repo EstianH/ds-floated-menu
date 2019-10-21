@@ -93,22 +93,56 @@ class DS_FLOATED_MENU {
 			'dsfm-movable' => __( 'DSFM: Movable Menu', DSFM_SLUG )
 		) );
 
+		// Register DSFM locations.
+		add_action( 'init', array( $this, 'register_nav_menus' ) );
+
 		// Enqueue plugin assets.
 		add_action( 'wp_enqueue_scripts', function() {
+			if ( true !== $this->has_active_menu() )
+				return;
+
 			wp_enqueue_script ( 'dsfm-script', DSFM_ASSETS . 'js/script.js',  array( 'jquery-core' ), DSFM_VERSION );
 			wp_enqueue_style  ( 'dsfm-style' , DSFM_ASSETS . 'css/style.css', array(),                DSFM_VERSION );
 		} );
 
+		// Render menus in/above the footer.
 		add_action( 'wp_footer', array( $this, 'render_menu_locations' ) );
 	}
 
 	/**
-	 * Render menus in their saved locations.
+	 * Render menus in/above the footer.
 	 *
 	 * @access private
 	 */
 	public function render_menu_locations() {
+		if ( true !== $this->has_active_menu() )
+			return;
+
 		load_template( DSFM_TEMPLATES . 'floated-menu.php' );
+	}
+
+	/**
+	 * Add menu locations to the WordPress menus manager page.
+	 *
+	 * @access public
+	 */
+	public function register_nav_menus() {
+		register_nav_menus( $this->menu_locations );
+	}
+
+	/**
+	 * Check if a DSFM menu has been assigned.
+	 *
+	 * @access public
+	 */
+	public function has_active_menu() {
+		foreach( $this->menu_locations as $location => $name )
+			if (
+				has_nav_menu( $location )
+			)
+				return true;
+
+		return false;
 	}
 }
 

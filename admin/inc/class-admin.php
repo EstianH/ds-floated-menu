@@ -67,9 +67,6 @@ class DS_FLOATED_MENU_ADMIN {
 
 		// Register plugin settings.
 		register_setting( 'dsfm_settings', 'dsfm_settings' );
-
-		// Register DSFM locations.
-		add_action( 'init', array( $this, 'register_nav_menus' ) );
 	}
 
 	/**
@@ -149,17 +146,6 @@ class DS_FLOATED_MENU_ADMIN {
 		array_push( $links, $settings_link );
 
 		return $links;
-	}
-
-	/**
-	 * Add menu locations to the WordPress menus manager page.
-	 *
-	 * @access public
-	 */
-	public function register_nav_menus() {
-		$dsfm = DS_FLOATED_MENU::get_instance();
-
-		register_nav_menus( $dsfm->menu_locations );
 	}
 }
 
