@@ -2,8 +2,11 @@
 
 $dsfm = DS_FLOATED_MENU::get_instance();
 // echo '<pre>'; print_r( $dsfm ); echo '</pre>';
-$tabs = array( 'Settings: Floated Menus', 'Settings: Movable Menus' );
-$active_tab = ( !empty( $_GET['tab'] ) ? $_GET['tab'] : $tabs[0] );
+$tabs = array(
+	'settings-floated-menus' => 'Settings: Floated Menus',
+	'settings-movable-menus' => 'Settings: Movable Menus'
+);
+$active_tab = ( !empty( $_GET['tab'] ) ? sanitize_title( $_GET['tab'] ) : 'settings-floated-menus' );
 ?>
 
 <div class="ds-wrapper">
@@ -16,8 +19,8 @@ $active_tab = ( !empty( $_GET['tab'] ) ? $_GET['tab'] : $tabs[0] );
 					<div id="dsfm-form-saved-notice" class="notice notice-success ds-m-0 ds-mb-2"><p>Settings saved</p></div>
 					<div class="ds-tab-nav-wrapper ds-tab-nav-wrapper-animate">
 						<?php
-						foreach( $tabs as $tab )
-							echo '<a href="#' . sanitize_title( $tab ) . '" class="ds-tab-nav' . ( $active_tab === $tab ? ' active' : '' ) . '">' . ucfirst( $tab ) . '</a>';
+						foreach( $tabs as $tab_slug => $tab )
+							echo '<a href="#tab-' . $tab_slug . '" class="ds-tab-nav' . ( $active_tab === $tab_slug ? ' active' : '' ) . '">' . ucfirst( $tab ) . '</a>';
 						?>
 					</div><!-- .ds-tab-nav-wrapper -->
 				</div><!-- .ds-col -->
@@ -46,7 +49,7 @@ $active_tab = ( !empty( $_GET['tab'] ) ? $_GET['tab'] : $tabs[0] );
 						   ██    ██   ██ ██████      ███████ ███████    ██       ██    ██ ██   ████  ██████  ███████     ██      ███████  ██████  ██   ██    ██    ███████ ██████
 						*/
 						?>
-						<div id="settings-floated-menus" class="ds-tab-content active">
+						<div id="tab-settings-floated-menus" class="ds-tab-content<?php echo ( $active_tab === 'settings-floated-menus' ? ' active' : '' ); ?>">
 							<?php
 							/*
 							██████  ██       ██████   ██████ ██   ██                ██████  ███████ ███    ██ ███████ ██████   █████  ██
@@ -174,7 +177,7 @@ $active_tab = ( !empty( $_GET['tab'] ) ? $_GET['tab'] : $tabs[0] );
 						   ██    ██   ██ ██████      ███████ ███████    ██       ██    ██ ██   ████  ██████  ███████     ██      ██  ██████    ████   ██   ██ ██████  ███████ ███████
 						*/
 						?>
-						<div id="settings-movable-menus" class="ds-tab-content">
+						<div id="tab-settings-movable-menus" class="ds-tab-content<?php echo ( $active_tab === 'settings-movable-menus' ? ' active' : '' ); ?>">
 							<div class="ds-row ds-mb-2">
 								<div class="ds-col">
 									<div class="ds-block">

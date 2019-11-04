@@ -32,7 +32,7 @@ jQuery( document ).ready( function() {
    ██    ██   ██ ██████  ███████
 */
 jQuery( document ).ready( function() {
-	jQuery(document).on( 'click', '.ds-tab-nav:not( .ds-tab-nav-link )', function( e ) {
+	jQuery( document ).on( 'click', '.ds-tab-nav:not( .ds-tab-nav-link )', function( e ) {
 		e.preventDefault();
 
 		if ( jQuery( this ).hasClass( 'active' ) )
