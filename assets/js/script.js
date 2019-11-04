@@ -16,18 +16,20 @@ jQuery( document ).ready( function() {
 	} );
 
 	// Handle sub-menu state.
-	$dsfm_menu.find( '.menu-item-has-children > a' ).on( 'click', e => {
+	$dsfm_menu.find( '.menu-item-has-children > a > span' ).on( 'click', e => {
 		e.preventDefault();
 
-		force_menu_height_even( $dsfm_menu, true ); // Clear dynamic height to allow animation.
+		var this_dsfm_menu = jQuery( e.target ).closest( '[id^="dsfm-"][id$="-container"]' );
 
-		jQuery( e.target ).siblings( '.sub-menu' ).slideToggle( 'fast', function() {
-			force_menu_height_even( $dsfm_menu );
+		force_menu_height_even( this_dsfm_menu, true ); // Clear dynamic height to allow animation.
 
-			if ( 'false' === jQuery( e.target ).attr( 'aria-expanded' ) )
-				jQuery( e.target ).attr( 'aria-expanded', true );
+		jQuery( e.target ).parent( 'a' ).siblings( '.sub-menu' ).slideToggle( 'fast', function() {
+			force_menu_height_even( this_dsfm_menu );
+
+			if ( 'false' === jQuery( e.target ).parent( 'a' ).attr( 'aria-expanded' ) )
+				jQuery( e.target ).parent( 'a' ).attr( 'aria-expanded', true );
 			else
-				jQuery( e.target ).attr( 'aria-expanded', false );
+				jQuery( e.target ).parent( 'a' ).attr( 'aria-expanded', false );
 		} );
 	} );
 } );

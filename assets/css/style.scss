@@ -1,9 +1,9 @@
 /*
-██████  ███████      ██████  ██████  ██████  ███████
-██   ██ ██          ██      ██    ██ ██   ██ ██
-██   ██ ███████     ██      ██    ██ ██████  █████
-██   ██      ██     ██      ██    ██ ██   ██ ██
-██████  ███████      ██████  ██████  ██   ██ ███████
+██████	███████			██████	██████	██████	███████
+██	 ██ ██					██			██		██ ██	 ██ ██
+██	 ██ ███████		 ██			██		██ ██████	█████
+██	 ██			██		 ██			██		██ ██	 ██ ██
+██████	███████			██████	██████	██	 ██ ███████
 */
 @import '../../admin/assets/vendors/ds-core/css/style';
 
@@ -44,15 +44,18 @@
 		@include ds-dimensions( 100%, auto );
 	}
 
-	&:hover {
-		> span {
-			&:first-child {
-				border-top-width: 6px;
-				border-radius: 50% 50% 0 0;
-			}
+	// Settings based.
+	&.dsfm-animate {
+		&:hover {
+			> span {
+				&:first-child {
+					border-top-width: 6px;
+					border-radius: 50% 50% 0 0;
+				}
 
-			&:last-child {
-				border-top-width: 4px;
+				&:last-child {
+					border-top-width: 4px;
+				}
 			}
 		}
 	}
@@ -89,6 +92,9 @@
 	}
 
 	> [id*="dsfm"] {
+		margin: 0;
+		list-style: none;
+
 		// Immediate decendents.
 		> .menu-item {
 			&:first-child {
@@ -99,6 +105,7 @@
 				border-bottom: 1px solid $ds-grey;
 			}
 
+			&.current-menu-ancestor,
 			&.current-menu-item,
 			&:hover {
 				> a {
@@ -119,35 +126,60 @@
 
 		// All decendents.
 		.menu-item {
+			margin: 0;
 			line-height: 1.5;
 
 			a {
 				transition: all 0.4s;
 				position: relative;
 				display: block;
-				padding: 5px 30px 5px 15px;
-				color: $ds-grey-dark;
+				padding: 5px 15px;
+				color: #515151;
 				line-height: inherit;
 				text-decoration: none;
 			}
 
 			&.menu-item-has-children {
 				> a {
-					&:before,
-					&:after {
-						content: "";
+					padding: 5px 40px 5px 15px;
+
+					> span {
 						position: absolute;
+						top: 0;
+						right: 0;
 						display: block;
-						right: 15px;
-						top: 17px;
-						background: $ds-grey-dark;
-						@include ds-dimensions( 2px, 8px );
-						@include ds-transform( rotate( 45deg ) );
+						@include ds-dimensions( 100%, 100% );
+
+						&:before,
+						&:after {
+							content: "";
+							position: absolute;
+							display: block;
+							right: 15px;
+							top: 15px;
+							background: $ds-grey-dark;
+							transition: all 0.4s;
+							@include ds-dimensions( 2px, 8px );
+							@include ds-transform( rotate( 45deg ) );
+						}
+
+						&:after {
+							right: 20px;
+							@include ds-transform( rotate( -45deg ) );
+						}
 					}
 
-					&:after {
-						right: 20px;
-						@include ds-transform( rotate( -45deg ) );
+					&[aria-expanded="false"] {
+						> span {
+							&:before,
+							&:after {
+								@include ds-transform( rotate( -45deg ) );
+							}
+
+							&:after {
+								@include ds-transform( rotate( 45deg ) );
+							}
+						}
 					}
 				}
 			}
@@ -158,6 +190,18 @@
 				list-style: none;
 				margin: 0;
 				padding: 0 0 0 10px;
+			}
+		}
+
+		&.dsfm-submenu-links-clickable {
+			.menu-item {
+				&.menu-item-has-children {
+					> a {
+						> span {
+							@include ds-dimensions( 40px, 100% );
+						}
+					}
+				}
 			}
 		}
 	}

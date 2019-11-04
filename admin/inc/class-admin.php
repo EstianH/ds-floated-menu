@@ -51,15 +51,23 @@ class DS_FLOATED_MENU_ADMIN {
 				return;
 
 			// WP assets.
-			wp_enqueue_script( 'jquery-form' ); // WP jQuery for forms handling.
+			wp_enqueue_media();                    // WP Media
+			wp_enqueue_script( 'jquery-form' );    // WP jQuery for forms handling.
+			wp_enqueue_style( 'wp-color-picker' ); // WP Color Picker.
 
 			// Plugin assets.
-			wp_enqueue_script ( 'dsfm-script', DSFM_ADMIN . 'assets/js/script.js',  array( 'jquery-core' ), DSFM_VERSION );
-			wp_enqueue_style  ( 'dsfm-style',  DSFM_ADMIN . 'assets/css/style.css', array(), DSFM_VERSION );
+			wp_enqueue_script( 'dsfm-script', DSFM_ADMIN . 'assets/js/script.js',  array( 'jquery-core', 'wp-color-picker-alpha' ), DSFM_VERSION );
+			 wp_enqueue_style( 'dsfm-style',  DSFM_ADMIN . 'assets/css/style.css', array(),                                         DSFM_VERSION );
 
 			// Vendor assets.
-			wp_enqueue_script ( 'dsc-script', DSFM_ADMIN . 'assets/vendors/ds-core/js/script.js',  array( 'jquery-core' ), DSFM_VERSION );
-			wp_enqueue_style  (  'dsc-style', DSFM_ADMIN . 'assets/vendors/ds-core/css/style.css', array(), DSFM_VERSION );
+			wp_enqueue_script( 'dsc-script', DSFM_ADMIN . 'assets/vendors/ds-core/js/script.js',  array( 'jquery-core' ), DSFM_VERSION );
+			 wp_enqueue_style(  'dsc-style', DSFM_ADMIN . 'assets/vendors/ds-core/css/style.css', array(),                DSFM_VERSION );
+			wp_enqueue_script(
+				'wp-color-picker-alpha',
+				DSFM_ADMIN . 'assets/vendors/wp-color-picker-alpha/wp-color-picker-alpha.min.js',
+				array( 'wp-color-picker' ),
+				DSFM_VERSION
+			); // Overriden/Extended WP Color Picker
 		} );
 
 		// Filters
