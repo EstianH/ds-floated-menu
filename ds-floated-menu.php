@@ -101,8 +101,12 @@ class DS_FLOATED_MENU {
 			if ( true !== $this->has_active_menu() )
 				return;
 
-			wp_enqueue_script ( 'dsfm-script', DSFM_ASSETS . 'js/script.js',  array( 'jquery-core' ), DSFM_VERSION );
-			wp_enqueue_style  ( 'dsfm-style' , DSFM_ASSETS . 'css/style.css', array(),                DSFM_VERSION );
+		  wp_enqueue_script( 'dsfm-script', DSFM_ASSETS . 'js/script.js',  array( 'jquery-core' ), DSFM_VERSION );
+		   wp_enqueue_style( 'dsfm-style' , DSFM_ASSETS . 'css/style.css', array(),                DSFM_VERSION );
+
+			// Setting based styles.
+			if ( $dynamic_styles = $this->get_dynamic_styles() )
+				wp_add_inline_style( 'dsfm-style', $dynamic_styles );
 		} );
 
 		// Render menus in/above the footer.
@@ -137,12 +141,29 @@ class DS_FLOATED_MENU {
 	 */
 	public function has_active_menu() {
 		foreach( $this->menu_locations as $location => $name )
-			if (
-				has_nav_menu( $location )
-			)
+			if ( has_nav_menu( $location ) )
 				return true;
 
 		return false;
+	}
+
+	/**
+	 * Return dynamic styles.
+	 *
+	 * @access public
+	 */
+	public function get_dynamic_styles() {
+		$styles = '';
+
+		if ( empty( $this->settings ) )
+			return $styles;
+
+		if ( !empty( $this->settings['floated']['menu_height_100'] ) )
+			$styles .= '
+
+			';
+
+		return $styles;
 	}
 }
 

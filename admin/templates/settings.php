@@ -3,8 +3,8 @@
 $dsfm = DS_FLOATED_MENU::get_instance();
 // echo '<pre>'; print_r( $dsfm ); echo '</pre>';
 $tabs = array(
-	'settings-floated-menus' => 'Settings: Floated Menus',
-	'settings-movable-menus' => 'Settings: Movable Menus'
+	'settings-floated-menus' => 'Floated Menus',
+	'settings-movable-menus' => 'Movable Menus'
 );
 $active_tab = ( !empty( $_GET['tab'] ) ? sanitize_title( $_GET['tab'] ) : 'settings-floated-menus' );
 ?>
@@ -71,16 +71,17 @@ $active_tab = ( !empty( $_GET['tab'] ) ? sanitize_title( $_GET['tab'] ) : 'setti
 										<div class="ds-block-body">
 											<div class="ds-row ds-flex-align-center ds-pb-1 ds-mb-1 ds-bb ds-ml-auto ds-mr-auto">
 												<div class="ds-col-12 ds-col-lg-3 ds-p-0 ds-pr-lg-2">
-													<?php _e( 'Menu Height', DSFM_SLUG ); ?>:
-													<br /><small>(ex: 100%/auto)</small>
+													<?php _e( 'Menu Height: 100%', DSFM_SLUG ); ?>:
 												</div>
 												<div class="ds-col-12 ds-col-lg-9 ds-p-0">
-													<input
-														class="ds-input-box"
-														name="dsfm_settings[floated][menu_height]"
-														type="text"
-														value="<?php echo ( !empty( $dsfm->settings['floated']['menu_height'] ) ? $dsfm->settings['floated']['menu_height'] : '' ); ?>"
-														placeholder="Default: auto" />
+													<label class="ds-toggler">
+														<input
+															name="dsfm_settings[floated][menu_height_100]"
+															type="checkbox"
+															value="1"
+															<?php echo ( !empty( $dsfm->settings['floated']['menu_height_100'] ) ? ' checked="checked"' : ''); ?> />
+															<span></span>
+													</label>
 												</div><!-- .ds-col -->
 											</div><!-- .ds-row -->
 										</div><!-- .ds-block-body -->
@@ -156,17 +157,6 @@ $active_tab = ( !empty( $_GET['tab'] ) ? sanitize_title( $_GET['tab'] ) : 'setti
 									</div><!-- .ds-block -->
 								</div><!-- .ds-col -->
 							</div><!-- .ds-row -->
-							<div class="ds-row dsfm-sticky-bottom">
-								<div class="ds-col">
-									<div class="ds-block">
-										<div class="ds-block-body ds-p-1">
-											<?php
-											submit_button('', 'button-primary button-hero', '', false );
-											?>
-										</div><!-- .ds-block-body -->
-									</div><!-- .ds-block -->
-								</div><!-- .ds-col -->
-							</div><!-- .ds-row -->
 						</div><!-- #settings-floated-menus -->
 						<?php
 						/*
@@ -207,18 +197,18 @@ $active_tab = ( !empty( $_GET['tab'] ) ? sanitize_title( $_GET['tab'] ) : 'setti
 									</div><!-- .ds-block -->
 								</div><!-- .ds-col -->
 							</div><!-- .ds-row -->
-							<div class="ds-row dsfm-sticky-bottom">
-								<div class="ds-col">
-									<div class="ds-block">
-										<div class="ds-block-body ds-p-1">
-											<?php
-											submit_button('', 'button-primary button-hero', '', false );
-											?>
-										</div><!-- .ds-block-body -->
-									</div><!-- .ds-block -->
-								</div><!-- .ds-col -->
-							</div><!-- .ds-row -->
 						</div><!-- #settings-movable-menus -->
+						<div class="ds-row dsfm-sticky-bottom">
+							<div class="ds-col">
+								<div class="ds-block">
+									<div class="ds-block-body ds-p-1">
+										<?php
+										submit_button('', 'button-primary button-hero', '', false );
+										?>
+									</div><!-- .ds-block-body -->
+								</div><!-- .ds-block -->
+							</div><!-- .ds-col -->
+						</div><!-- .ds-row -->
 					</form><!-- #dsfm-form-main -->
 				</div><!-- .ds-col -->
 				<?php

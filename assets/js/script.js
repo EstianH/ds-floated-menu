@@ -26,7 +26,7 @@ jQuery( document ).ready( function() {
 		jQuery( e.target ).parent( 'a' ).siblings( '.sub-menu' ).slideToggle( 'fast', function() {
 			force_menu_height_even( this_dsfm_menu );
 
-			if ( 'false' === jQuery( e.target ).parent( 'a' ).attr( 'aria-expanded' ) )
+			if ( 'true' !== jQuery( e.target ).parent( 'a' ).attr( 'aria-expanded' ) )
 				jQuery( e.target ).parent( 'a' ).attr( 'aria-expanded', true );
 			else
 				jQuery( e.target ).parent( 'a' ).attr( 'aria-expanded', false );
@@ -38,16 +38,19 @@ jQuery( document ).ready( function() {
  * Calculate dynamic menu height in order to prevent odd pixel height containers.
  * Odd pixel values result in blurry HTML elements. This is a known browser glitch.
  */
-function force_menu_height_even( $dsfm_menu, clear_only ) {
+function force_menu_height_even( dsfm_menu, clear_only ) {
 	var clear_only = clear_only || false;
 
-	$dsfm_menu.each( function( key, menu ) {
-		jQuery( menu ).prop( 'style', false );
+	dsfm_menu.each( function( key, menu_container ) {
+		if ( jQuery( menu_container ).hasClass( 'dsfm-height-100' ) )
+			return;
+
+		jQuery( menu_container ).prop( 'style', false );
 
 		if (
 			true !== clear_only
-			&& 0 !== jQuery( menu ).outerHeight() % 2
+			&& 0 !== jQuery( menu_container ).outerHeight() % 2
 		)
-			jQuery( menu ).css( 'height', jQuery( menu ).outerHeight() - 1 ); // Deduct a single pixel in order to calculate an even integer height.
+			jQuery( menu_container ).css( 'height', jQuery( menu_container ).outerHeight() - 1 ); // Deduct a single pixel in order to calculate an even integer height.
 	} );
 }
