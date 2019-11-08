@@ -3,6 +3,9 @@ if( !defined( 'ABSPATH' ) ) exit;
 
 $dsfm = DS_FLOATED_MENU::get_instance();
 
+if ( !empty( $dsfm->settings['floated']['menu_focus_panel'] ) )
+	echo '<div id="dsfm-focus-panel"></div>';
+
 foreach( $dsfm->menu_locations as $location => $name ) {
 	if ( has_nav_menu( $location ) ) {
 		//

@@ -2263,16 +2263,6 @@ select.ds-input-box {
 
   .ds-justify-content-xxl-beteen {
     justify-content: space-between !important; } }
-[id^="dsfm"][id$="container"] {
-  box-sizing: border-box; }
-  [id^="dsfm"][id$="container"] * {
-    box-sizing: inherit;
-    font-family: inherit;
-    text-decoration: none;
-    -webkit-font-smoothing: subpixel-antialiased; }
-    [id^="dsfm"][id$="container"] * *:focus {
-      outline: none; }
-
 .dsfm-hamburger-icon {
   position: absolute;
   top: 50%;
@@ -2304,10 +2294,36 @@ select.ds-input-box {
   .dsfm-hamburger-icon.dsfm-animate:hover > span:last-child {
     border-top-width: 4px; }
 
+#dsfm-focus-panel {
+  transition: all 0.2s;
+  position: fixed;
+  z-index: 998;
+  top: 0;
+  left: 0;
+  display: block;
+  background: #515151;
+  height: 100%;
+  width: 100%;
+  opacity: 0;
+  visibility: hidden; }
+  #dsfm-focus-panel.active {
+    opacity: 0.5;
+    visibility: visible; }
+
+[id^="dsfm"][id$="container"] {
+  box-sizing: border-box; }
+  [id^="dsfm"][id$="container"] * {
+    box-sizing: inherit;
+    font-family: inherit;
+    text-decoration: none;
+    -webkit-font-smoothing: subpixel-antialiased; }
+    [id^="dsfm"][id$="container"] * *:focus {
+      outline: none; }
+
 #dsfm-left-container,
 #dsfm-right-container {
   position: fixed;
-  z-index: 999;
+  z-index: 997;
   top: 50%;
   transition: all 0.4s;
   display: -webkit-box;
@@ -2337,13 +2353,9 @@ select.ds-input-box {
     padding: 0;
     height: auto;
     width: 100%; }
-  #dsfm-left-container.active > .dsfm-hamburger-icon,
-  #dsfm-right-container.active > .dsfm-hamburger-icon {
-    background-color: #515151;
-    border-color: #515151; }
-    #dsfm-left-container.active > .dsfm-hamburger-icon > span,
-    #dsfm-right-container.active > .dsfm-hamburger-icon > span {
-      border-color: #fff; }
+  #dsfm-left-container.active,
+  #dsfm-right-container.active {
+    z-index: 999; }
   #dsfm-left-container > [id*="dsfm"],
   #dsfm-right-container > [id*="dsfm"] {
     margin: 0;
@@ -2458,20 +2470,18 @@ select.ds-input-box {
       border-bottom-width: 0; }
 
 #dsfm-left-container {
-  border-right-width: 5px;
   left: -220px; }
   #dsfm-left-container > .dsfm-hamburger-icon {
-    left: calc( 100% + 5px );
+    left: 100%;
     border-right-width: 1px; }
   #dsfm-left-container.active {
     left: 0;
     border-right-color: #515151; }
 
 #dsfm-right-container {
-  border-left-width: 5px;
   right: -220px; }
   #dsfm-right-container > .dsfm-hamburger-icon {
-    right: calc( 100% + 5px );
+    right: 100%;
     border-left-width: 1px; }
   #dsfm-right-container.active {
     right: 0;

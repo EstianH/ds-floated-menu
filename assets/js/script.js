@@ -1,22 +1,27 @@
 jQuery( document ).ready( function() {
-	const $dsfm_menu = jQuery( '[id^="dsfm-"][id$="-container"]' );
-	force_menu_height_even( $dsfm_menu );
+	const $dsfm_containers = jQuery( '[id^="dsfm-"][id$="-container"]' );
+	const $dsfm_focus_panel = jQuery( '#dsfm-focus-panel' );
+
+	force_menu_height_even( $dsfm_containers );
 
 	// Handle menu state.
 	jQuery( document ).mouseup( e => {
 		if (
-			  !$dsfm_menu.is( e.target ) // if the target of the click isn't the container...
-			&& $dsfm_menu.has( e.target).length === 0 // ... nor a descendant of the container
-		)
-			$dsfm_menu.removeClass( 'active' );
+			  !$dsfm_containers.is( e.target ) // if the target of the click isn't the container...
+			&& $dsfm_containers.has( e.target).length === 0 // ... nor a descendant of the container
+		) {
+			$dsfm_containers.removeClass( 'active' );
+			$dsfm_focus_panel.removeClass( 'active' );
+		}
 	 } );
 
 	jQuery( '.dsfm-hamburger-icon' ).on( 'click', e => {
-		jQuery( e.target ).closest( $dsfm_menu ).toggleClass( 'active' );
+		jQuery( e.target ).closest( $dsfm_containers ).toggleClass( 'active' );
+		$dsfm_focus_panel.toggleClass( 'active' );
 	} );
 
 	// Handle sub-menu state.
-	$dsfm_menu.find( '.menu-item-has-children > a > span' ).on( 'click', e => {
+	$dsfm_containers.find( '.menu-item-has-children > a > span' ).on( 'click', e => {
 		e.preventDefault();
 
 		var this_dsfm_menu = jQuery( e.target ).closest( '[id^="dsfm-"][id$="-container"]' );

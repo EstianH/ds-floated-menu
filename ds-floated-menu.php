@@ -158,11 +158,6 @@ class DS_FLOATED_MENU {
 		if ( empty( $this->settings ) )
 			return $styles;
 
-		if ( !empty( $this->settings['floated']['menu_height_100'] ) )
-			$styles .= '
-
-			';
-
 		return $styles;
 	}
 }

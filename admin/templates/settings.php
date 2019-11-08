@@ -3,10 +3,10 @@
 $dsfm = DS_FLOATED_MENU::get_instance();
 // echo '<pre>'; print_r( $dsfm ); echo '</pre>';
 $tabs = array(
-	'settings-floated-menus' => 'Floated Menus',
-	'settings-movable-menus' => 'Movable Menus'
+	'Floated Menus',
+	'Movable Menu'
 );
-$active_tab = ( !empty( $_GET['tab'] ) ? sanitize_title( $_GET['tab'] ) : 'settings-floated-menus' );
+$active_tab = ( !empty( $_GET['tab'] ) ? sanitize_title( $_GET['tab'] ) : 'floated-menus' );
 ?>
 
 <div class="ds-wrapper">
@@ -19,8 +19,8 @@ $active_tab = ( !empty( $_GET['tab'] ) ? sanitize_title( $_GET['tab'] ) : 'setti
 					<div id="dsfm-form-saved-notice" class="notice notice-success ds-m-0 ds-mb-2"><p>Settings saved</p></div>
 					<div class="ds-tab-nav-wrapper ds-tab-nav-wrapper-animate">
 						<?php
-						foreach( $tabs as $tab_slug => $tab )
-							echo '<a href="#tab-' . $tab_slug . '" class="ds-tab-nav' . ( $active_tab === $tab_slug ? ' active' : '' ) . '">' . ucfirst( $tab ) . '</a>';
+						foreach( $tabs as $tab )
+							echo '<a href="#tab-' . sanitize_title( $tab ) . '" class="ds-tab-nav' . ( $active_tab === sanitize_title( $tab ) ? ' active' : '' ) . '">' . ucfirst( $tab ) . '</a>';
 						?>
 					</div><!-- .ds-tab-nav-wrapper -->
 				</div><!-- .ds-col -->
@@ -42,14 +42,14 @@ $active_tab = ( !empty( $_GET['tab'] ) ? sanitize_title( $_GET['tab'] ) : 'setti
 						<div id="dsfm-form-loading-panel"></div>
 						<?php settings_fields( 'dsfm_settings' );
 						/*
-						████████  █████  ██████      ███████ ███████ ████████ ████████ ██ ███    ██  ██████  ███████     ███████ ██       ██████   █████  ████████ ███████ ██████
-						   ██    ██   ██ ██   ██     ██      ██         ██       ██    ██ ████   ██ ██       ██          ██      ██      ██    ██ ██   ██    ██    ██      ██   ██
-						   ██    ███████ ██████      ███████ █████      ██       ██    ██ ██ ██  ██ ██   ███ ███████     █████   ██      ██    ██ ███████    ██    █████   ██   ██
-						   ██    ██   ██ ██   ██          ██ ██         ██       ██    ██ ██  ██ ██ ██    ██      ██     ██      ██      ██    ██ ██   ██    ██    ██      ██   ██
-						   ██    ██   ██ ██████      ███████ ███████    ██       ██    ██ ██   ████  ██████  ███████     ██      ███████  ██████  ██   ██    ██    ███████ ██████
+						████████  █████  ██████         ███████ ██       ██████   █████  ████████ ███████ ██████      ███    ███ ███████ ███    ██ ██    ██ ███████
+						   ██    ██   ██ ██   ██ ██     ██      ██      ██    ██ ██   ██    ██    ██      ██   ██     ████  ████ ██      ████   ██ ██    ██ ██
+						   ██    ███████ ██████         █████   ██      ██    ██ ███████    ██    █████   ██   ██     ██ ████ ██ █████   ██ ██  ██ ██    ██ ███████
+						   ██    ██   ██ ██   ██ ██     ██      ██      ██    ██ ██   ██    ██    ██      ██   ██     ██  ██  ██ ██      ██  ██ ██ ██    ██      ██
+						   ██    ██   ██ ██████         ██      ███████  ██████  ██   ██    ██    ███████ ██████      ██      ██ ███████ ██   ████  ██████  ███████
 						*/
 						?>
-						<div id="tab-settings-floated-menus" class="ds-tab-content<?php echo ( $active_tab === 'settings-floated-menus' ? ' active' : '' ); ?>">
+						<div id="tab-<?php echo sanitize_title( $tabs[0] ); ?>" class="ds-tab-content<?php echo ( $active_tab === sanitize_title( $tabs[0] ) ? ' active' : '' ); ?>">
 							<?php
 							/*
 							██████  ██       ██████   ██████ ██   ██                ██████  ███████ ███    ██ ███████ ██████   █████  ██
@@ -80,6 +80,38 @@ $active_tab = ( !empty( $_GET['tab'] ) ? sanitize_title( $_GET['tab'] ) : 'setti
 															type="checkbox"
 															value="1"
 															<?php echo ( !empty( $dsfm->settings['floated']['menu_height_100'] ) ? ' checked="checked"' : ''); ?> />
+															<span></span>
+													</label>
+												</div><!-- .ds-col -->
+											</div><!-- .ds-row -->
+											<div class="ds-row ds-flex-align-center ds-pb-1 ds-mb-1 ds-bb ds-ml-auto ds-mr-auto">
+												<div class="ds-col-12 ds-col-lg-3 ds-p-0 ds-pr-lg-2">
+													<?php _e( 'Enable Submenu Links', DSFM_SLUG ); ?>:
+													<br /><small>(Clickable links for menu items that have submenus)</small>
+												</div>
+												<div class="ds-col-12 ds-col-lg-9 ds-p-0">
+													<label class="ds-toggler">
+														<input
+															name="dsfm_settings[floated][menu_submenu_links_clickable]"
+															type="checkbox"
+															value="1"
+															<?php echo ( !empty( $dsfm->settings['floated']['menu_submenu_links_clickable'] ) ? ' checked="checked"' : ''); ?> />
+															<span></span>
+													</label>
+												</div><!-- .ds-col -->
+											</div><!-- .ds-row -->
+											<div class="ds-row ds-flex-align-center ds-ml-auto ds-mr-auto">
+												<div class="ds-col-12 ds-col-lg-3 ds-p-0 ds-pr-lg-2">
+													<?php _e( 'Enable Menu Focus', DSFM_SLUG ); ?>:
+													<br /><small>(Animated menu focus effect)</small>
+												</div>
+												<div class="ds-col-12 ds-col-lg-9 ds-p-0">
+													<label class="ds-toggler">
+														<input
+															name="dsfm_settings[floated][menu_focus_panel]"
+															type="checkbox"
+															value="1"
+															<?php echo ( !empty( $dsfm->settings['floated']['menu_focus_panel'] ) ? ' checked="checked"' : ''); ?> />
 															<span></span>
 													</label>
 												</div><!-- .ds-col -->
@@ -122,7 +154,7 @@ $active_tab = ( !empty( $_GET['tab'] ) ? sanitize_title( $_GET['tab'] ) : 'setti
 												</div><!-- .ds-col -->
 											</div><!-- .ds-row -->
 											<?php $floated_menu_image_url = ( !empty( $dsfm->settings['floated']['background']['image'] ) ? $dsfm->settings['floated']['background']['image'] : '' ); ?>
-											<div class="ds-row ds-flex-align-center ds-pb-1 ds-mb-1 ds-bb ds-ml-auto ds-mr-auto">
+											<div class="ds-row ds-flex-align-center ds-ml-auto ds-mr-auto">
 												<div class="ds-col-12 ds-col-lg-3 ds-p-0 ds-pr-lg-2">
 													<?php _e( 'Image', DSFM_SLUG ); ?>:
 												</div>
@@ -150,24 +182,24 @@ $active_tab = ( !empty( $_GET['tab'] ) ? sanitize_title( $_GET['tab'] ) : 'setti
 																</button>
 															</div>
 														</div>
-													</div>
+													</div><!-- .ds-image-container -->
 												</div><!-- .ds-col -->
 											</div><!-- .ds-row -->
 										</div><!-- .ds-block-body -->
 									</div><!-- .ds-block -->
 								</div><!-- .ds-col -->
 							</div><!-- .ds-row -->
-						</div><!-- #settings-floated-menus -->
+						</div><!-- #floated-menus -->
 						<?php
 						/*
-						████████  █████  ██████      ███████ ███████ ████████ ████████ ██ ███    ██  ██████  ███████     ███    ███  ██████  ██    ██  █████  ██████  ██      ███████
-						   ██    ██   ██ ██   ██     ██      ██         ██       ██    ██ ████   ██ ██       ██          ████  ████ ██    ██ ██    ██ ██   ██ ██   ██ ██      ██
-						   ██    ███████ ██████      ███████ █████      ██       ██    ██ ██ ██  ██ ██   ███ ███████     ██ ████ ██ ██    ██ ██    ██ ███████ ██████  ██      █████
-						   ██    ██   ██ ██   ██          ██ ██         ██       ██    ██ ██  ██ ██ ██    ██      ██     ██  ██  ██ ██    ██  ██  ██  ██   ██ ██   ██ ██      ██
-						   ██    ██   ██ ██████      ███████ ███████    ██       ██    ██ ██   ████  ██████  ███████     ██      ██  ██████    ████   ██   ██ ██████  ███████ ███████
+						████████  █████  ██████         ███    ███  ██████  ██    ██  █████  ██████  ██      ███████     ███    ███ ███████ ███    ██ ██    ██
+						   ██    ██   ██ ██   ██ ██     ████  ████ ██    ██ ██    ██ ██   ██ ██   ██ ██      ██          ████  ████ ██      ████   ██ ██    ██
+						   ██    ███████ ██████         ██ ████ ██ ██    ██ ██    ██ ███████ ██████  ██      █████       ██ ████ ██ █████   ██ ██  ██ ██    ██
+						   ██    ██   ██ ██   ██ ██     ██  ██  ██ ██    ██  ██  ██  ██   ██ ██   ██ ██      ██          ██  ██  ██ ██      ██  ██ ██ ██    ██
+						   ██    ██   ██ ██████         ██      ██  ██████    ████   ██   ██ ██████  ███████ ███████     ██      ██ ███████ ██   ████  ██████
 						*/
 						?>
-						<div id="tab-settings-movable-menus" class="ds-tab-content<?php echo ( $active_tab === 'settings-movable-menus' ? ' active' : '' ); ?>">
+						<div id="tab-<?php echo sanitize_title( $tabs[1] ); ?>" class="ds-tab-content<?php echo ( $active_tab === sanitize_title( $tabs[1] ) ? ' active' : '' ); ?>">
 							<div class="ds-row ds-mb-2">
 								<div class="ds-col">
 									<div class="ds-block">
@@ -197,7 +229,7 @@ $active_tab = ( !empty( $_GET['tab'] ) ? sanitize_title( $_GET['tab'] ) : 'setti
 									</div><!-- .ds-block -->
 								</div><!-- .ds-col -->
 							</div><!-- .ds-row -->
-						</div><!-- #settings-movable-menus -->
+						</div><!-- #movable-menu -->
 						<div class="ds-row dsfm-sticky-bottom">
 							<div class="ds-col">
 								<div class="ds-block">

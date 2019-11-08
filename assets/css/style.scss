@@ -7,21 +7,6 @@
 */
 @import '../../admin/assets/vendors/ds-core/css/style';
 
-[id^="dsfm"][id$="container"] {
-	box-sizing: border-box;
-
-	* {
-		box-sizing: inherit;
-		font-family: inherit;
-		text-decoration: none;
-		-webkit-font-smoothing: subpixel-antialiased;
-
-		*:focus {
-			outline: none;
-		}
-	}
-}
-
 .dsfm-hamburger-icon {
 	position: absolute;
 	top: 50%;
@@ -61,10 +46,43 @@
 	}
 }
 
+#dsfm-focus-panel {
+	transition: all 0.2s;
+	position: fixed;
+	z-index: 998;
+	top: 0;
+	left: 0;
+	display: block;
+	background: $ds-grey-dark;
+	@include ds-dimensions( 100%, 100% );
+	opacity: 0;
+	visibility: hidden;
+
+	&.active {
+		opacity: 0.5;
+		visibility: visible;
+	}
+}
+
+[id^="dsfm"][id$="container"] {
+	box-sizing: border-box;
+
+	* {
+		box-sizing: inherit;
+		font-family: inherit;
+		text-decoration: none;
+		-webkit-font-smoothing: subpixel-antialiased;
+
+		*:focus {
+			outline: none;
+		}
+	}
+}
+
 #dsfm-left-container,
 #dsfm-right-container {
 	position: fixed;
-	z-index: 999;
+	z-index: 997;
 	top: 50%;
 	transition: all 0.4s;
 	display: -webkit-box;
@@ -91,14 +109,16 @@
 	}
 
 	&.active {
-		> .dsfm-hamburger-icon {
-			background-color: $ds-grey-dark;
-			border-color: $ds-grey-dark;
+		z-index: 999;
 
-			> span {
-				border-color: $white;
-			}
-		}
+		// > .dsfm-hamburger-icon {
+		// 	background-color: $ds-grey-dark;
+		// 	border-color: $ds-grey-dark;
+		//
+		// 	> span {
+		// 		border-color: $white;
+		// 	}
+		// }
 	}
 
 	> [id*="dsfm"] {
@@ -145,7 +165,7 @@
 				position: relative;
 				display: block;
 				padding: 5px 15px;
-				color: #515151;
+				color: $ds-grey-dark;
 				line-height: inherit;
 				text-decoration: none;
 			}
@@ -238,11 +258,10 @@
 }
 
 #dsfm-left-container {
-	border-right-width: 5px;
 	left: -220px;
 
 	> .dsfm-hamburger-icon {
-		left: calc( 100% + 5px );
+		left: 100%;
 		border-right-width: 1px;
 	}
 
@@ -253,11 +272,10 @@
 }
 
 #dsfm-right-container {
-	border-left-width: 5px;
 	right: -220px;
 
 	> .dsfm-hamburger-icon {
-		right: calc( 100% + 5px );
+		right: 100%;
 		border-left-width: 1px;
 	}
 
