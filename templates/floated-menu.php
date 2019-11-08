@@ -8,13 +8,12 @@ if ( !empty( $dsfm->settings['floated']['menu_focus_panel'] ) )
 
 foreach( $dsfm->menu_locations as $location => $name ) {
 	if ( has_nav_menu( $location ) ) {
-		//
 		$menu_container_classes = array();
 
 		if ( !empty( $dsfm->settings['floated']['menu_height_100'] ) )
 			$menu_container_classes[] = 'dsfm-height-100';
 
-		$menu_html = '<div id="' . $location . '-container" class="' . implode( ' ', apply_filters( 'dsfm_menu_icon_classes', $menu_container_classes ) ) . '">';
+		$menu_html = '<div id="' . $location . '-container" class="' . implode( ' ', apply_filters( 'dsfm_menu_container_classes', $menu_container_classes ) ) . '">';
 
 		$menu_icon_classes = array(
 			'dsfm-hamburger-icon',
