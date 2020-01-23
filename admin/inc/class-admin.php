@@ -96,7 +96,6 @@ class DS_FLOATED_MENU_ADMIN {
 			function() {                                // $function
 				load_template( DSFM_ROOT . 'admin/templates/settings.php' );
 			},
-			DSFM_ASSETS . 'images/icon-xs.png',         // $icon_url
 			79                                          // $position
 		);
 	}
