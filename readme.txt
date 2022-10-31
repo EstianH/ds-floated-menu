@@ -15,10 +15,10 @@ License URI: http://www.gnu.org/licenses/gpl-3.0.html
 Donate link: https://www.divspot.co.za
 
 == Description ==
-Add a customizable floated (movable) menu to your website.
+DS Floated Menu adds a customizable floated (movable) menu to your website.
 
 = Features =
-* Add a floating menu to any page or post.
+* Add a floating menu to your website front-end.
 * Enable/disable floated menu movability.
 * Enable/disable menu on desktop/mobile devices.
 * Customize the menu with pre-built settings or custom CSS, or both.

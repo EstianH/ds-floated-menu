@@ -87,10 +87,19 @@ class DS_FLOATED_MENU {
 	private function __construct() {
 		$this->settings = get_option( 'dsfm_settings' );
 
-		$this->menu_locations = apply_filters( 'dsfm-menu-locations', array(
-			'dsfm-left'    => __( 'DSFM: Float Left'  , DSFM_SLUG ),
-			'dsfm-right'   => __( 'DSFM: Float Right' , DSFM_SLUG ),
-			'dsfm-movable' => __( 'DSFM: Movable Menu', DSFM_SLUG )
+		$this->menu_locations = apply_filters( 'dsfm_menu_locations', array(
+			'dsfm-left'    => [
+				'title'        => __( 'DSFM: Float Left'  , DSFM_SLUG ),
+				'interactable' => false
+			],
+			'dsfm-right'   => [
+				'title'        => __( 'DSFM: Float Right' , DSFM_SLUG ),
+				'interactable' => false
+			],
+			'dsfm-movable' => [
+				'title'        => __( 'DSFM: Movable Menu', DSFM_SLUG ),
+				'interactable' => true
+			]
 		) );
 
 		// Register DSFM locations.
@@ -102,7 +111,11 @@ class DS_FLOATED_MENU {
 				return;
 
 		  wp_enqueue_script( 'dsfm-script', DSFM_ASSETS . 'js/script.js',  array( 'jquery-core' ), DSFM_VERSION );
-		   wp_enqueue_style( 'dsfm-style' , DSFM_ASSETS . 'css/style.css', array(),                DSFM_VERSION );
+
+			if ( true === $this->has_active_menu() )
+				wp_enqueue_script( 'dsfm-interactjs', DSFM_ASSETS . 'vendors/interactjs/js/interact.min.js',  array( 'dsfm-script' ), DSFM_VERSION );
+
+			wp_enqueue_style( 'dsfm-style', DSFM_ASSETS . 'css/style.css', array(), DSFM_VERSION );
 
 			// Setting based styles.
 			if ( $dynamic_styles = $this->get_dynamic_styles() )
@@ -111,6 +124,10 @@ class DS_FLOATED_MENU {
 
 		// Render menus in/above the footer.
 		add_action( 'wp_footer', array( $this, 'render_menu_locations' ) );
+
+		// Add our interactjs vendor class to the menu container where necessary.
+		add_filter( 'dsfm_menu_icon_classes', array( $this, 'dsfm_menu_icon_classes_add_interact_class' ), 10, 3 );
+		add_filter( 'dsfm_menu_classes', array( $this, 'dsfm_menu_classes_add_interact_class' ), 10, 3 );
 	}
 
 	/**
@@ -126,12 +143,47 @@ class DS_FLOATED_MENU {
 	}
 
 	/**
+	 * Add our interactjs vendor class to the menu icon element.
+	 *
+	 * @access private
+	 */
+	public function dsfm_menu_icon_classes_add_interact_class( $classes, $menu_id, $menu_data ) {
+		if (
+			   'dsfm-movable' === $menu_id
+			&& true === $menu_data['interactable']
+		)
+			$classes[] = 'menu_interactable';
+
+		return $classes;
+	}
+
+	/**
+	 * Add our interactjs vendor class to the menu wrapper element.
+	 *
+	 * @access private
+	 */
+	public function dsfm_menu_classes_add_interact_class( $classes, $menu_id, $menu_data ) {
+		// if (
+		// 	   'dsfm-movable' === $menu_id
+		// 	&& true === $menu_data['interactable']
+		// )
+		// 	$classes[] = 'menu_interactable';
+
+		return $classes;
+	}
+
+	/**
 	 * Add menu locations to the WordPress menus manager page.
 	 *
 	 * @access public
 	 */
 	public function register_nav_menus() {
-		register_nav_menus( $this->menu_locations );
+		$menu_locations = [];
+
+		foreach ( $this->menu_locations as $menu_id => $menu_data )
+			$menu_locations[$menu_id] = $menu_data['title'];
+
+		register_nav_menus( $menu_locations );
 	}
 
 	/**
@@ -139,9 +191,12 @@ class DS_FLOATED_MENU {
 	 *
 	 * @access public
 	 */
-	public function has_active_menu() {
-		foreach( $this->menu_locations as $location => $name )
-			if ( has_nav_menu( $location ) )
+	public function has_active_menu( $menu_locations = [] ) {
+		if ( empty( $menu_locations ) )
+			$menu_locations = $this->menu_locations;
+
+		foreach( $menu_locations as $menu_id => $menu_data )
+			if ( has_nav_menu( $menu_id ) )
 				return true;
 
 		return false;

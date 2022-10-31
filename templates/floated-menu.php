@@ -6,14 +6,14 @@ $dsfm = DS_FLOATED_MENU::get_instance();
 if ( !empty( $dsfm->settings['floated']['menu_focus_panel'] ) )
 	echo '<div id="dsfm-focus-panel"></div>';
 
-foreach( $dsfm->menu_locations as $location => $name ) {
-	if ( has_nav_menu( $location ) ) {
+foreach( $dsfm->menu_locations as $menu_id => $menu_data ) {
+	if ( $dsfm->has_active_menu( [$menu_id => $menu_data['title']] ) ) {
 		$menu_container_classes = array();
 
 		if ( !empty( $dsfm->settings['floated']['menu_height_100'] ) )
 			$menu_container_classes[] = 'dsfm-height-100';
 
-		$menu_html = '<div id="' . $location . '-container" class="' . implode( ' ', apply_filters( 'dsfm_menu_container_classes', $menu_container_classes ) ) . '">';
+		$menu_html = '<div id="' . $menu_id . '-container" class="' . implode( ' ', apply_filters( 'dsfm_menu_container_classes', $menu_container_classes ) ) . '">';
 
 		$menu_icon_classes = array(
 			'dsfm-hamburger-icon',
@@ -25,7 +25,7 @@ foreach( $dsfm->menu_locations as $location => $name ) {
 		if ( !empty( $dsfm->settings['floated']['animate_icon'] ) )
 			$menu_icon_classes[] = 'dsfm-animate';
 
-		$menu_html .= '<div class="' . implode( ' ', apply_filters( 'dsfm_menu_icon_classes', $menu_icon_classes ) ) . '">' .
+		$menu_html .= '<div class="' . implode( ' ', apply_filters( 'dsfm_menu_icon_classes', $menu_icon_classes, $menu_id, $menu_data ) ) . '">' .
 			'<span></span>' .
 			'<span></span>' .
 			'<span></span>' .
@@ -39,15 +39,15 @@ foreach( $dsfm->menu_locations as $location => $name ) {
 			$menu_classes[] = 'dsfm-submenu-links-clickable';
 
 		$menu_html .= wp_nav_menu( array(
-			'theme_location' => $location,                                                      // Menu location.
-			'container'      => '',                                                             // Menu HTML wrapper.
-			'menu_id'        => $location,                                                      // Menu element id.
-			'menu_class'     => implode( ' ', apply_filters( 'dsfm_menu_classes', $menu_classes ) ), // Menu element classes.
-			'link_after'     => '<span></span>',                                                // Menu link element text/html.
-			'before'         => '',                                                             // HTML before each menu list item element.
-			'depth'          => 0,                                                              // Menu hierarchy depth. 0 = infinite.
-			'fallback_cb'    => false,                                                          // Menu fallback.
-			'echo'           => false                                                           // Echo the menu on true, return on false.
+			'theme_location' => $menu_id,              // Menu location.
+			'container'      => '',                    // Menu HTML wrapper.
+			'menu_id'        => $menu_id,              // Menu element id.
+			'menu_class'     => implode( ' ', apply_filters( 'dsfm_menu_classes', $menu_classes, $menu_id, $menu_data ) ), // Menu element classes.
+			'link_after'     => '<span></span>',       // Menu link element text/html.
+			'before'         => '',                    // HTML before each menu list item element.
+			'depth'          => 0,                     // Menu hierarchy depth. 0 = infinite.
+			'fallback_cb'    => false,                 // Menu fallback.
+			'echo'           => false                  // Echo the menu on true, return on false.
 		) );
 
 		$menu_html .= '</div>';

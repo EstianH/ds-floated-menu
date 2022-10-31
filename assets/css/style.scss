@@ -80,7 +80,8 @@
 }
 
 #dsfm-left-container,
-#dsfm-right-container {
+#dsfm-right-container,
+#dsfm-movable-container {
 	position: fixed;
 	z-index: 997;
 	top: 50%;
@@ -257,7 +258,8 @@
 	}
 }
 
-#dsfm-left-container {
+#dsfm-left-container,
+#dsfm-movable-container {
 	left: -220px;
 
 	> .dsfm-hamburger-icon {
@@ -268,6 +270,13 @@
 	&.active {
 		left: 0;
 		border-right-color: $ds-grey-dark;
+	}
+}
+
+#dsfm-movable-container {
+	> .dsfm-hamburger-icon {
+		left: calc( 100% + 100px );
+		transition: unset;
 	}
 }
 
